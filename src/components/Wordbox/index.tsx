@@ -3,9 +3,10 @@ import './style.css';
 
 interface IWordboxProp {
   word: string;
+  onFinish: () => void;
 }
 
-const Wordbox : React.FC<IWordboxProp> = ({ word }) => {
+const Wordbox : React.FC<IWordboxProp> = ({ word, onFinish }) => {
   const [lettersLeft, setLettersLeft] = useState<string>(word);  
   
   useEffect(
@@ -16,7 +17,11 @@ const Wordbox : React.FC<IWordboxProp> = ({ word }) => {
       
 
         if (key === lettersLeft[0]) {
-          console.log("spravně")
+          //console.log("spravně")
+            if(lettersLeft.length === 1) {
+              onFinish();
+            }
+
           //setLettersLeft(lettersLeft.slice(1)) //chci od prvního znaku až do konce 0,1 ...
           setLettersLeft(x => x.slice(1))
           
@@ -30,8 +35,7 @@ const Wordbox : React.FC<IWordboxProp> = ({ word }) => {
         document.removeEventListener("keyup", handleKeyUp)
       }
     }
-
-   
+    
   )
   return (
     <div className="wordbox">{lettersLeft}</div>
