@@ -5,7 +5,7 @@ import './style.css';
 
 // TODO: temporary disable function - remove next line when you start using it
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-const generateWord = (size: number) => {
+const generateWord = (size: number): string | null => {
   const sizeIndex = size === undefined
     ? Math.floor(Math.random() * wordList.length)
     : size - 3;
@@ -20,17 +20,33 @@ const generateWord = (size: number) => {
 };
 
 const Stage = () => {
-  const [words, setWords] = useState<string[]>(['jahoda']);
+  const [words, setWords] = useState<string[]>(['jahoda', 'banán', 'meloun']);
 
   const handleFinish = () => {
-    setWords([generateWord(6)])
-  }
+    setWords((prev) => {
+      // odstraním první slovo a zbytek mi zůstane
+      const [, ...rest] = prev;
+  
+      // vygeneruju nové slovo 
+      const newWord = generateWord(6) || 'jahoda';
+  
+      // vrátím nové pole = 3 slova
+      return [...rest, newWord];
+    });
+  };
+  
 
   return (
     <div className="stage">
       <div className="stage__mistakes">Chyb: 0</div>
       <div className="stage__words">
-        {words.map((word) => <Wordbox word={word} key={word} onFinish={handleFinish}/>)}
+        {words.map((word, i) => 
+        <Wordbox 
+          word={word } 
+          key={word} 
+          onFinish={handleFinish} 
+          active={i === 0} 
+          />)}
       </div>
     </div>
   );

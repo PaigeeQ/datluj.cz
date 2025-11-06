@@ -1,5 +1,5 @@
 .stage {
-  height: 340px;
+  height: 440px;
   padding: 32px;
   margin: 32px auto;
   background-color: #efefef;
@@ -18,13 +18,5 @@
   align-items: center;
 }
 
-.wordbox {
-  font-size: 48px;
-  font-weight: bold;
-  color: black;
-  transition: color 0.3s ease;
-}
 
-.wordbox.mistake {
-  color: red;
-}
+

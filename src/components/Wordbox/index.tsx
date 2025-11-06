@@ -4,24 +4,32 @@ import './style.css';
 interface IWordboxProp {
   word: string;
   onFinish: () => void;
+  active: boolean;
 }
 
-const Wordbox : React.FC<IWordboxProp> = ({ word, onFinish }) => {
+const Wordbox : React.FC<IWordboxProp> = ({ word, onFinish, active }) => {
   const [lettersLeft, setLettersLeft] = useState<string>(word);  
   const [mistake, setMistake] = useState<boolean>(false);
+
   
   useEffect(() => {
     setLettersLeft(word);
     setMistake(false);
   }, [word]);
-  
+  console.log('lettersLeft =', JSON.stringify(lettersLeft));
+
   useEffect(() => {
+    if (!active) return;
+
       const handleKeyUp = (e: KeyboardEvent) => {
         const key = e.key;
         //console.log(e.key.toUpperCase())
       
+        if (!lettersLeft) return;
+
         if (key === lettersLeft[0]) {
           setMistake(false);
+      
           //console.log("spravně")
             if(lettersLeft.length === 1) {
               onFinish();
@@ -36,22 +44,20 @@ const Wordbox : React.FC<IWordboxProp> = ({ word, onFinish }) => {
         setTimeout(() => setMistake(false), 300); 
       }
     };
-    
+  
       document.addEventListener("keyup", handleKeyUp)
       return() => {
         document.removeEventListener("keyup", handleKeyUp)
       };
     },
-[lettersLeft, onFinish]);
+[lettersLeft, onFinish, active]);
 
-    const wordboxClass = mistake ? 'wordbox mistake' : 'wordbox';
-
-  return (
-  <div className={wordboxClass}>{lettersLeft}</div>
-  );
-
-};
-
+return (
+  <div className={mistake ? 'wordbox wordbox--mistake' : 'wordbox'}>
+    {lettersLeft}
+  </div>
+);
+}
 export default Wordbox;
 
 
