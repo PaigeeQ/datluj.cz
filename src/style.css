@@ -12,4 +12,16 @@ html {
   width: 720px;
   margin-right: auto;
   margin-left: auto;
+  font-size: 32px;
+  text-align: center;
+  color: black;
+}
+
+body {
+  background-image: url('./datluj.png');
+  background-size: cover;         
+  background-position: center;    
+  background-repeat: no-repeat;  
+  background-attachment: fixed;   
+  opacity: 0.8;                   
 }

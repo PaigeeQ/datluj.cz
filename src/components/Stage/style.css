@@ -2,8 +2,9 @@
   height: 440px;
   padding: 32px;
   margin: 32px auto;
-  background-color: #efefef;
+  background-color: rgba(251, 227, 235, 0.7);
   border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
 }
 
 .stage__mistakes {
